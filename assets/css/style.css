@@ -55,7 +55,7 @@ main {
 }
 
 .hero {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
     text-align: center;
     background: rgba(102, 126, 234, 0.1);
     backdrop-filter: blur(10px);
@@ -67,11 +67,11 @@ main {
 /* Thumbnails grid */
 .thumbnails {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 320px);
+    grid-template-columns: repeat(auto-fit, 280px);
     justify-content: center;
-    gap: 2.5rem;
-    margin-top: 2rem;
-    max-width: 1050px;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -82,7 +82,7 @@ main {
     display: block;
     background: transparent;
     border-radius: 8px;
-    padding: 2.5rem;
+    padding: 1.5rem;
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
@@ -94,11 +94,11 @@ main {
 }
 
 .thumbnail img {
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 4px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -114,14 +114,14 @@ main {
 }
 
 .thumbnail h3 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     color: #333;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .thumbnail p {
     color: #666;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .year-badge {
@@ -180,9 +180,9 @@ main {
 /* Introduction text */
 .hero .intro-text {
     color: rgba(255, 255, 255, 0.85);
-    font-size: 1.3rem !important;
-    line-height: 2;
-    margin: 1.5rem 0 3rem 0;
+    font-size: 1.1rem !important;
+    line-height: 1.6;
+    margin: 1rem 0 2rem 0;
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -216,10 +216,10 @@ main {
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 }
 
 /* Unique thumbnail backgrounds */
@@ -247,7 +247,7 @@ main {
     background: rgba(255, 218, 185, 0.9); /* Light orange for video/technical */
 }
 .hero p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     opacity: 0.9;
 }
 
