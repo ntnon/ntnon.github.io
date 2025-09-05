@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <title>Anton Nydal</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="assets/css/style.css" />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    </head>
+    <body>
+        <!-- Canvas background -->
+        <canvas id="background-canvas"></canvas>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h1 id="copyable-email" title="Click to copy email">
+                        Anton@Nydal.net
+
+                            <path
+                                d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
+                            ></path>
+                            <path
+                                d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"
+                            ></path>
+                        </svg>
+                    </h1>
+                    <a
+                        href="https://github.com/ntnon"
+                        class="github-link"
+                        target="_blank"
+                    >
+                        <svg
+                            class="github-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+                            ></path>
+                        </svg>
+                        github.com/ntnon
+                    </a>
+                    <p class="intro-text">
+                        Hi. I'm a PhD student in Medical Technology at University of Bergen.
+<br/>
+                        My interests are web development, game development, and Human Computer Interaction.
+<br/>
+                        Below are projects that I've worked on.
+                    </p>
+                    <div class="thumbnails">
+                        <a
+                            href="https://flower-wine.vercel.app/"
+                            class="thumbnail thumbnail-flowers"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(255, 182, 193, 0.8);
+                                "
+                            ></div>
+                            <img
+                                src="assets/flower-generator.png"
+                                alt="Flower Generator"
+                            />
+                            <span class="year-badge">2025</span>
+                            <div class="thumbnail-text">
+                                <h3>Flowers</h3>
+                                <p>Procedural flower generation</p>
+                            </div>
+                        </a>
+                        <a
+                            href="https://web-cog.vercel.app/"
+                            class="thumbnail thumbnail-webcog"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(173, 216, 230, 0.8);
+                                "
+                            ></div>
+                            <img src="assets/web-cog.png" alt="Web Cog" />
+                            <span class="year-badge">2024</span>
+                            <div class="thumbnail-text">
+                                <h3>Web-Cog</h3>
+                                <p>An interactive demo of my Master Thesis</p>
+                            </div>
+                        </a>
+                        <a
+                            href="https://github.com/ntnon/INFO132-Essay/blob/d67f943d7e2edb2fdf2fdb32e8695b11393555ca/INFO320_Essay.pdf"
+                            class="thumbnail thumbnail-essay"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(255, 255, 224, 0.8);
+                                "
+                            ></div>
+                            <img src="assets/essay.png" alt="Essay" />
+                            <span class="year-badge">2024</span>
+                            <div class="thumbnail-text">
+                                <h3>INFO132 Essay</h3>
+                                <p>
+                                    Academic essay on combining recommender
+                                    systems and knowledge graphs
+                                </p>
+                            </div>
+                        </a>
+                        <a
+                            href="https://ntnon.github.io/blackbrew/"
+                            class="thumbnail thumbnail-blackbrew"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(211, 211, 211, 0.8);
+                                "
+                            ></div>
+                            <img src="assets/blackbrew.png" alt="BlackBrew" />
+                            <span class="year-badge">2023</span>
+                            <div class="thumbnail-text">
+                                <h3>Blackbrew</h3>
+                                <p>
+                                    A character creation page for the tabletop
+                                    rpg "lady blackbird" with a lot of homebrew
+                                    content
+                                </p>
+                            </div>
+                        </a>
+                        <a
+                            href="https://ntnon.github.io/FIND-A-PEP/"
+                            class="thumbnail thumbnail-pep"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(144, 238, 144, 0.8);
+                                "
+                            ></div>
+                            <img src="assets/find-a-pep.png" alt="Find a PEP" />
+                            <span class="year-badge">2023</span>
+                            <div class="thumbnail-text">
+                                <h3>FIND-A-PEP</h3>
+                                <p>
+                                    Search Norwegian Politically Exposed Person.
+                                    Submission for Stacc's KYC challenge 2022
+                                </p>
+                            </div>
+                        </a>
+
+                        <a
+                            href="https://www.youtube.com/watch?v=MrLgT09u69Y"
+                            class="thumbnail thumbnail-binary"
+                            target="_blank"
+                        >
+                            <div
+                                class="thumbnail-bg-square"
+                                style="
+                                    background-color: rgba(255, 218, 185, 0.8);
+                                "
+                            ></div>
+                            <img
+                                src="assets/binary-adder.png"
+                                alt="Binary Adder"
+                            />
+                            <span class="year-badge">2020</span>
+                            <div class="thumbnail-text">
+                                <h3>Binary Adder in Line Rider (video)</h3>
+                                <p>
+                                    Binary addition calculator made in Line
+                                    Rider
+                                </p>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="container">
+
+                <p>&copy; 2025 Anton Nydal. All rights reserved.</p>
+                <a href="http://vanilla-js.com/" target="_blank" class="vanilla-js-link">
+                    <img alt="VanillaJS" src="assets/vanillajs-button.png" height="20"/>
+                </a>
+            </div>
+        </footer>
+
+        <!-- JavaScript -->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
