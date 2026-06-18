@@ -15,6 +15,9 @@
         <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     </head>
     <body>
+        <!-- Hex grid background -->
+        <canvas id="grid" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;"></canvas>
+
         <!-- Canvas background -->
         <canvas id="background-canvas"></canvas>
 
@@ -51,7 +54,7 @@
                         Github
                     </a>
                     <a
-                        href="https://github.com/ntnon"
+                        href="https://typst.app/project/rrIaa9IemkPivyqdS4o3Xb"
                         class="personal-link"
                         target="_blank"
                     >
@@ -91,55 +94,74 @@
 
                         LinkedIn
                     </a>
+                    <a
+                        href="mailto:anton@nydal.net"
+                        class="personal-link"
+                    >
+                        <svg
+                            class="github-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="M22 4l-10 8L2 4"></path>
+                        </svg>
+                        Email
+                    </a>
+
 
                     <p class="intro-text">
                         I am a software engineer situated in Bergen
                     </p>
 
-                    <div class="thumbnails">
+                    <div class="card-grid">
                         <a
                             href="https://typst.app/project/rrIaa9IemkPivyqdS4o3Xb"
-                            class="thumbnail thumbnail-cv"
+                            class="card card--cv"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img
                                 src="assets/cv.png"
                                 alt="CV"
                             />
                             <span class="year-badge">2026</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>CV</h3>
                                 <p>written in Typst</p>
                             </div>
                         </a>
                         <a
                            href="https://www.youtube.com/watch?v=qOGhBfHtq9I"
-                            class="thumbnail thumbnail-linerider-gravity"
+                            class="card card--linerider-gravity"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img
                                 src="assets/linerider-gravity.png"
                                 alt="Line Rider Gravity API"
                             />
                             <span class="year-badge">2026</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>Line Rider Gravity API</h3>
                                 <p>Create emergent visuals using a custom made gravity API for linerider.com</p>
                             </div>
                         </a>
                         <a
                             href="https://flower-wine.vercel.app/"
-                            class="thumbnail thumbnail-flowers"
+                            class="card card--flowers"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
 
                             ></div>
                             <img
@@ -147,38 +169,38 @@
                                 alt="Flower Generator"
                             />
                             <span class="year-badge">2025</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>Flowers</h3>
                                 <p>Procedural kaleidoscope generation</p>
                             </div>
                         </a>
                         <a
                             href="https://web-cog.vercel.app/"
-                            class="thumbnail thumbnail-webcog"
+                            class="card card--webcog"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
 
                             ></div>
                             <img src="assets/web-cog.png" alt="Web Cog" />
                             <span class="year-badge">2024</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>Web-Cog</h3>
                                 <p>An interactive demo of my Master Thesis</p>
                             </div>
                         </a>
                         <a
                             href="https://github.com/ntnon/INFO132-Essay/blob/d67f943d7e2edb2fdf2fdb32e8695b11393555ca/INFO320_Essay.pdf"
-                            class="thumbnail thumbnail-essay"
+                            class="card card--essay"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img src="assets/essay.png" alt="Essay" />
                             <span class="year-badge">2024</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>INFO132 Essay</h3>
                                 <p>
                                     Academic essay on combining recommender
@@ -188,15 +210,15 @@
                         </a>
                         <a
                             href="https://ntnon.github.io/blackbrew/"
-                            class="thumbnail thumbnail-blackbrew"
+                            class="card card--blackbrew"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img src="assets/blackbrew.png" alt="BlackBrew" />
                             <span class="year-badge">2023</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>Blackbrew</h3>
                                 <p>
                                     A character creation page for the tabletop
@@ -207,15 +229,15 @@
                         </a>
                         <a
                             href="https://ntnon.github.io/FIND-A-PEP/"
-                            class="thumbnail thumbnail-pep"
+                            class="card card--pep"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img src="assets/find-a-pep.png" alt="Find a PEP" />
                             <span class="year-badge">2023</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>FIND-A-PEP</h3>
                                 <p>
                                     Search Norwegian Politically Exposed Person.
@@ -226,18 +248,18 @@
 
                         <a
                             href="https://www.youtube.com/watch?v=MrLgT09u69Y"
-                            class="thumbnail thumbnail-binary"
+                            class="card card--binary"
                             target="_blank"
                         >
                             <div
-                                class="thumbnail-bg-square"
+                                class="card-bg"
                             ></div>
                             <img
                                 src="assets/binary-adder.png"
                                 alt="Binary Adder"
                             />
                             <span class="year-badge">2020</span>
-                            <div class="thumbnail-text">
+                            <div class="card-body">
                                 <h3>Binary Adder in Line Rider (video)</h3>
                                 <p>
                                     Binary addition calculator made in Line
@@ -264,18 +286,13 @@
 
         <!-- JavaScript -->
         <script src="assets/js/main.js"></script>
-    </body>
-</html>
-
-
-<canvas id="grid"></canvas>
-<script>
+        <script>
 const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
 
 const size = 25;        // hex radius (center to vertex)
-const influence = 150;
-const strength = 30;
+const influence = 50;
+const strength = 45;
 
 // Pointy-top hex geometry
 const hexWidth = size * Math.sqrt(3);
@@ -289,7 +306,9 @@ function buildGrid() {
 
   hexCenters = [];
   const cols = Math.ceil(canvas.width / hexWidth) + 2;
-  const rows = Math.ceil(canvas.height / (hexHeight * 0.75)) + 2;
+  // Build enough rows to cover the viewport at max scroll
+  const totalHeight = document.documentElement.scrollHeight;
+  const rows = Math.ceil((canvas.height + totalHeight) / (hexHeight * 0.75)) + 2;
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -304,6 +323,7 @@ buildGrid();
 window.addEventListener('resize', buildGrid);
 
 let mouse = { x: -9999, y: -9999 };
+const parallaxFactor = 0.4; // scroll slower than foreground
 
 window.addEventListener('mousemove', (e) => {
   const rect = canvas.getBoundingClientRect();
@@ -331,8 +351,10 @@ function getDisplaced(rx, ry) {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.lineWidth = 2;
+
+  const scrollOffset = window.scrollY * parallaxFactor;
 
   for (const center of hexCenters) {
     // Compute displaced corners independently for warp effect
@@ -340,7 +362,7 @@ function draw() {
     for (let i = 0; i < 6; i++) {
       const angle = (Math.PI / 3) * i - Math.PI / 6; // pointy-top
       const cornerRx = center.rx + size * Math.cos(angle);
-      const cornerRy = center.ry + size * Math.sin(angle);
+      const cornerRy = center.ry + size * Math.sin(angle) - scrollOffset;
       corners.push(getDisplaced(cornerRx, cornerRy));
     }
 
@@ -358,4 +380,6 @@ function draw() {
 }
 
 draw();
-</script>
+        </script>
+    </body>
+</html>

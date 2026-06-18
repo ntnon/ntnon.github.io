@@ -104,7 +104,7 @@
 
     drawBackground();
 
-    // Thumbnails now have colored squares added directly in HTML
+    // Cards now have colored backgrounds added directly in HTML
 
     // Clickable email header functionality
     const emailHeader = document.getElementById("copyable-email");
