@@ -38,19 +38,3 @@
   setInterval(checkForChanges, 1000);
   console.log("🔄 Live reload enabled");
 })();
-
-// Email copy functionality
-(function () {
-  const emailHeader = document.getElementById("copyable-email");
-  if (!emailHeader) return;
-
-  emailHeader.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText("anton@nydal.net");
-      emailHeader.classList.add("copied");
-      setTimeout(() => emailHeader.classList.remove("copied"), 1500);
-    } catch (err) {
-      console.error("Failed to copy email:", err);
-    }
-  });
-})();
