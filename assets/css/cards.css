@@ -1,0 +1,155 @@
+/* Card grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 280px);
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    background: transparent;
+    border-radius: 4px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    isolation: isolate;
+}
+
+.card:hover {
+    transform: translateY(12px);
+}
+
+.card img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    position: relative;
+    z-index: 2;
+}
+
+.card-body {
+    position: relative;
+    z-index: 2;
+}
+
+.card h3 {
+    margin-bottom: 0.3rem;
+    color: #333;
+    font-size: 1rem;
+}
+
+.card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.card--wide {
+    width: 400px;
+}
+
+.year-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+    z-index: 2;
+}
+
+/* Card background */
+.card-bg {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    z-index: -1;
+    border-radius: 9px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    pointer-events: none;
+}
+
+/* Card hover checkmark */
+.card-check {
+    position: absolute;
+    bottom: 0.8rem;
+    left: 0.8rem;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 3;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: check-pulse 2s ease-in-out infinite;
+}
+
+@keyframes check-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+    50% { transform: scale(1.2); box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.3); }
+}
+
+.card-check.checked {
+    background: rgba(255, 215, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 12px 4px rgba(255, 215, 0, 0.5);
+    animation: none;
+    transform: scale(1.1);
+}
+
+/* Card color themes */
+.card--cv {
+    background: rgba(200, 190, 210, 0.9);
+}
+
+.card--linerider-gravity {
+    background: rgba(173, 228, 185, 0.9);
+}
+
+.card--flowers {
+    background: rgba(255, 182, 193, 0.9);
+}
+
+.card--webcog {
+    background: rgba(173, 216, 230, 0.9);
+}
+
+.card--essay {
+    background: rgba(255, 255, 224, 0.9);
+}
+
+.card--blackbrew {
+    background: rgba(211, 211, 211, 0.9);
+}
+
+.card--pep {
+    background: rgba(144, 238, 144, 0.9);
+}
+
+.card--binary {
+    background: rgba(255, 218, 185, 0.9);
+}

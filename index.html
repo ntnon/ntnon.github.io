@@ -9,7 +9,10 @@
         <title>Anton Nydal</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="assets/css/base.css" />
+        <link rel="stylesheet" href="assets/css/cards.css" />
+        <link rel="stylesheet" href="assets/css/drawer.css" />
+        <link rel="stylesheet" href="assets/css/responsive.css" />
 
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -18,21 +21,14 @@
         <!-- Hex grid background -->
         <canvas id="grid" style="position:fixed;top:0;left:0;z-index:-1;"></canvas>
 
-        <!-- Canvas background -->
-        <canvas id="background-canvas"></canvas>
-
         <main>
             <section class="hero">
                 <div class="container">
                     <h1 id="copyable-email" title="Click to copy email">
                         Anton@Nydal.net
-
-                            <path
-                                d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
-                            ></path>
-                            <path
-                                d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"
-                            ></path>
+                        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
+                            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"></path>
                         </svg>
                     </h1>
                     <a
@@ -152,7 +148,7 @@
                             />
                             <span class="year-badge">2026</span>
                             <div class="card-body">
-                                <h3>Line Rider Gravity API</h3>
+                                <h3>Line Rider Gravity API (video)</h3>
                                 <p>Create emergent visuals using a custom made gravity API for linerider.com</p>
                             </div>
                             <span class="card-check"><svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"></polyline></svg></span>
@@ -308,6 +304,7 @@
             <span class="tab-label" id="tab-label">GRID SETTINGS</span>
         </button>
         <div class="grid-drawer" id="grid-drawer">
+            <button class="grid-drawer-close" id="grid-drawer-close">&times;</button>
             <div class="grid-drawer-content">
                 <h2>Grid Settings</h2>
                 <label>
@@ -332,409 +329,7 @@
 
         <!-- JavaScript -->
         <script src="assets/js/main.js"></script>
-        <script>
-const canvas = document.getElementById('grid');
-const ctx = canvas.getContext('2d');
-
-// Screen-relative hex sizing
-const screenMin = Math.min(window.innerWidth, window.innerHeight);
-const hexSizeMin = Math.max(window.innerWidth <= 600 ? 5 : 14, Math.round(screenMin / 80));
-const hexSizeMax = Math.round(screenMin / 8);
-const hexSizeDefault = Math.round(screenMin / 40);
-
-let size = hexSizeDefault;              // hex radius (center to vertex)
-let influence = 60;          // mouse influence radius
-let strength = 30;           // mouse push strength (scaled relative to baseSize)
-let constraint = 0.3;       // how strongly neighbors pull each other (0–1)
-let constraintPasses = 2;   // relaxation iterations per frame
-const baseSize = hexSizeDefault;        // reference size for strength scaling
-
-// Pointy-top hex geometry
-let hexWidth = size * Math.sqrt(3);
-let hexHeight = size * 2;
-
-let vertices = [];   // { rx, ry, dx, dy, prevDx, prevDy, neighbors: [] }
-let hexes = [];      // each is an array of 6 vertex indices
-let vertexMap = {};  // key → index, for deduplication
-
-// Round to grid precision to merge shared corners
-function vtxKey(x, y) {
-  return (Math.round(x * 10)) + ',' + (Math.round(y * 10));
-}
-
-function getOrCreateVertex(x, y) {
-  const key = vtxKey(x, y);
-  if (vertexMap[key] !== undefined) return vertexMap[key];
-  const idx = vertices.length;
-  vertices.push({ rx: x, ry: y, dx: 0, dy: 0, prevDx: 0, prevDy: 0, neighbors: [] });
-  vertexMap[key] = idx;
-  return idx;
-}
-
-function addEdge(a, b) {
-  if (a === b) return;
-  if (!vertices[a].neighbors.includes(b)) {
-    vertices[a].neighbors.push(b);
-    vertices[b].neighbors.push(a);
-  }
-}
-
-function buildGrid() {
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  canvas.style.width = window.innerWidth + 'px';
-  canvas.style.height = window.innerHeight + 'px';
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  vertices = [];
-  hexes = [];
-  vertexMap = {};
-
-  const cols = Math.ceil(window.innerWidth / hexWidth) + 2;
-  const totalHeight = document.documentElement.scrollHeight;
-  const rows = Math.ceil((window.innerHeight + totalHeight) / (hexHeight * 0.75)) + 2;
-
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const cx = c * hexWidth + (r % 2) * (hexWidth / 2);
-      const cy = r * hexHeight * 0.75;
-
-      const cornerIndices = [];
-      for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i - Math.PI / 6; // pointy-top
-        const vx = cx + size * Math.cos(angle);
-        const vy = cy + size * Math.sin(angle);
-        cornerIndices.push(getOrCreateVertex(vx, vy));
-      }
-
-      // Connect consecutive corners along each hex edge
-      for (let i = 0; i < 6; i++) {
-        addEdge(cornerIndices[i], cornerIndices[(i + 1) % 6]);
-      }
-
-      hexes.push(cornerIndices);
-    }
-  }
-}
-
-buildGrid();
-window.addEventListener('resize', buildGrid);
-window.addEventListener('orientationchange', () => setTimeout(buildGrid, 100));
-
-let mouse = { x: -9999, y: -9999 };
-const parallaxFactor = 0.4;
-
-// mousemove is handled in the drawer logic below
-// Touch support for grid displacement
-window.addEventListener('touchmove', (e) => {
-  const touch = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = touch.clientX - rect.left;
-  mouse.y = touch.clientY - rect.top;
-});
-
-window.addEventListener('touchend', () => {
-  mouse = { x: -9999, y: -9999 };
-});
-
-window.addEventListener('mouseleave', () => {
-  mouse = { x: -9999, y: -9999 };
-});
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-  ctx.lineWidth = 2;
-
-  const scrollOffset = window.scrollY * parallaxFactor;
-
-  // Step 1: compute direct mouse displacement for each vertex
-  for (const v of vertices) {
-    const ry = v.ry - scrollOffset;
-    const dx = v.rx - mouse.x;
-    const dy = ry - mouse.y;
-    const dist = Math.hypot(dx, dy);
-
-    if (dist > 0 && dist < influence) {
-      const factor = Math.pow(1 - dist / influence, 2) * strength * (size / baseSize);
-      v.dx = (dx / dist) * factor;
-      v.dy = (dy / dist) * factor;
-    } else {
-      v.dx = 0;
-      v.dy = 0;
-    }
-  }
-
-  // Step 2: propagate displacement through neighbor constraints
-  for (let iter = 0; iter < constraintPasses; iter++) {
-    // snapshot current displacements so reads don't see partial writes
-    for (const v of vertices) {
-      v.prevDx = v.dx;
-      v.prevDy = v.dy;
-    }
-    for (const v of vertices) {
-      const n = v.neighbors.length;
-      if (n === 0) continue;
-      let avgDx = 0, avgDy = 0;
-      for (const ni of v.neighbors) {
-        avgDx += vertices[ni].prevDx;
-        avgDy += vertices[ni].prevDy;
-      }
-      avgDx /= n;
-      avgDy /= n;
-      // blend own displacement toward neighbor average
-      v.dx = v.prevDx + (avgDx - v.prevDx) * constraint;
-      v.dy = v.prevDy + (avgDy - v.prevDy) * constraint;
-    }
-  }
-
-  // Step 3: draw hexes using displaced vertex positions
-  for (const hex of hexes) {
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const v = vertices[hex[i]];
-      const x = v.rx + v.dx;
-      const y = (v.ry - scrollOffset) + v.dy;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-    ctx.stroke();
-  }
-
-  requestAnimationFrame(draw);
-}
-
-draw();
-
-// --- Card hover checkmarks & settings drawer ---
-(function () {
-  const cards = document.querySelectorAll('.card');
-  const drawer = document.getElementById('grid-drawer');
-  const tab = document.getElementById('grid-drawer-tab');
-  const fakeCursor = document.getElementById('fake-cursor');
-  const totalCards = cards.length;
-  let checkedCount = 0;
-  let tabRevealed = false;
-  let drawerOpen = false;
-  let fakeCursorAnim = null;
-
-  function setDrawerOpen(open) {
-    drawerOpen = open;
-    document.body.classList.toggle('drawer-open', open);
-    if (open) {
-      realMouseOverGrid = false;
-      fakeCursor.classList.add('active');
-      startFakeCursor();
-    } else {
-      realMouseOverGrid = false;
-      fakeCursor.classList.remove('active');
-      stopFakeCursor();
-      mouse = { x: -9999, y: -9999 };
-    }
-  }
-
-  // Fake cursor animation — slow lissajous pattern on the left side
-  let fakeCursorTime = 0;
-  let realMouseOverGrid = false;
-
-  function isMobile() {
-    return window.innerWidth <= 600;
-  }
-
-  function getDrawerWidth() {
-    return isMobile() ? 0 : 380;
-  }
-
-  function getDrawerHeight() {
-    return isMobile() ? window.innerHeight * 0.4 : 0;
-  }
-
-  function animateFakeCursor() {
-    fakeCursorTime += 0.003;
-    let x, y;
-    if (isMobile()) {
-      // Bottom drawer — animate in the upper portion
-      const areaHeight = window.innerHeight - getDrawerHeight();
-      const cx = window.innerWidth * 0.5;
-      const cy = areaHeight * 0.5;
-      const rx = Math.min(window.innerWidth * 0.3, 150);
-      const ry = Math.min(areaHeight * 0.35, 120);
-      x = cx + Math.sin(fakeCursorTime * 1.3) * rx;
-      y = cy + Math.sin(fakeCursorTime * 2.1) * ry;
-    } else {
-      // Side drawer — animate on the left
-      const areaWidth = window.innerWidth - getDrawerWidth();
-      const cx = areaWidth * 0.5;
-      const cy = window.innerHeight * 0.5;
-      const rx = Math.min(areaWidth * 0.35, 250);
-      const ry = Math.min(window.innerHeight * 0.3, 200);
-      x = cx + Math.sin(fakeCursorTime * 1.3) * rx;
-      y = cy + Math.sin(fakeCursorTime * 2.1) * ry;
-    }
-
-    fakeCursor.style.left = x + 'px';
-    fakeCursor.style.top = y + 'px';
-
-    // Only feed fake cursor into grid if real mouse isn't over the grid
-    if (!realMouseOverGrid) {
-      mouse.x = x;
-      mouse.y = y;
-      fakeCursor.classList.add('active');
-    } else {
-      fakeCursor.classList.remove('active');
-    }
-
-    fakeCursorAnim = requestAnimationFrame(animateFakeCursor);
-  }
-
-  function startFakeCursor() {
-    if (fakeCursorAnim) return;
-    animateFakeCursor();
-  }
-
-  function stopFakeCursor() {
-    if (fakeCursorAnim) {
-      cancelAnimationFrame(fakeCursorAnim);
-      fakeCursorAnim = null;
-    }
-  }
-
-  const tabDots = document.querySelectorAll('.tab-dot');
-
-  // Show tab immediately with empty dots
-  tab.classList.add('visible');
-
-  function markCard(check, index) {
-    if (check.classList.contains('checked')) return;
-    check.classList.add('checked');
-    // Light up corresponding dot
-    if (tabDots[index]) tabDots[index].classList.add('lit');
-    checkedCount++;
-    if (checkedCount >= totalCards && !tabRevealed) {
-      tabRevealed = true;
-      setTimeout(() => {
-        tab.classList.add('ready');
-        tab.classList.add('pulse');
-      }, 400);
-    }
-  }
-
-  cards.forEach((card, index) => {
-    const check = card.querySelector('.card-check');
-    if (!check) return;
-
-    if (isMobile() && 'IntersectionObserver' in window) {
-      // Mobile: mark when scrolled into view
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          markCard(check, index);
-          observer.disconnect();
-        }
-      }, { threshold: 0.6 });
-      observer.observe(card);
-    } else {
-      // Desktop: hover
-      card.addEventListener('mouseenter', () => markCard(check, index));
-    }
-  });
-
-  // Toggle drawer
-  tab.addEventListener('click', () => {
-    tab.classList.remove('pulse');
-    const isOpen = drawer.classList.toggle('open');
-    tab.classList.toggle('pushed', isOpen);
-    setDrawerOpen(isOpen);
-  });
-
-  // Override real mouse when drawer is open
-  window.addEventListener('mousemove', (e) => {
-    if (drawerOpen) {
-      // Check if mouse is over the grid area (left of the drawer)
-      const overGrid = isMobile()
-        ? e.clientY < window.innerHeight - getDrawerHeight()
-        : e.clientX < window.innerWidth - getDrawerWidth();
-      if (overGrid) {
-        realMouseOverGrid = true;
-        fakeCursor.classList.remove('active');
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      } else {
-        realMouseOverGrid = false;
-        fakeCursor.classList.add('active');
-      }
-      return;
-    }
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-
-  window.addEventListener('mouseleave', () => {
-    if (drawerOpen) {
-      realMouseOverGrid = false;
-    }
-  });
-
-  // Dialog sliders
-  function wireSlider(sliderId, outputId, setter) {
-    const slider = document.getElementById(sliderId);
-    const output = document.getElementById(outputId);
-    if (!slider || !output) return;
-    slider.addEventListener('input', () => {
-      const val = setter(slider.value);
-      output.textContent = val;
-    });
-  }
-
-  // Initialize hex size slider with screen-relative values
-  const sizeSlider = document.getElementById('slider-size');
-  const sizeOutput = document.getElementById('val-size');
-  sizeSlider.min = hexSizeMin;
-  sizeSlider.max = hexSizeMax;
-  sizeSlider.value = hexSizeDefault;
-  sizeOutput.textContent = hexSizeDefault;
-
-  wireSlider('slider-size', 'val-size', (v) => {
-    size = Number(v);
-    hexWidth = size * Math.sqrt(3);
-    hexHeight = size * 2;
-    buildGrid();
-    return size;
-  });
-
-  wireSlider('slider-influence', 'val-influence', (v) => {
-    influence = Number(v);
-    return influence;
-  });
-
-  wireSlider('slider-strength', 'val-strength', (v) => {
-    strength = Number(v);
-    return strength;
-  });
-
-  wireSlider('slider-constraint', 'val-constraint', (v) => {
-    constraint = Number(v) / 100;
-    return constraint.toFixed(2);
-  });
-
-  // Randomize
-  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-
-  function syncSlider(id, value) {
-    const slider = document.getElementById(id);
-    if (slider) { slider.value = value; slider.dispatchEvent(new Event('input')); }
-  }
-
-  document.getElementById('grid-randomize').addEventListener('click', () => {
-    syncSlider('slider-size', randInt(hexSizeMin, hexSizeMax));
-    syncSlider('slider-influence', randInt(20, 400));
-    syncSlider('slider-strength', randInt(50, 1500));
-    syncSlider('slider-constraint', randInt(0, 100));
-  });
-})();
-        </script>
+        <script src="assets/js/hex-grid.js"></script>
+        <script src="assets/js/drawer.js"></script>
     </body>
 </html>
