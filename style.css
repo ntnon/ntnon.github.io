@@ -90,7 +90,7 @@ main {
 }
 
 .thumbnail:hover {
-    transform: translateY(-6px);
+    transform: translateY(8•px);
 }
 
 .thumbnail img {
@@ -122,6 +122,11 @@ main {
 .thumbnail p {
     color: #666;
     font-size: 0.9rem;
+}
+
+.thumbnail-wide {
+    width: 400px;
+
 }
 
 .year-badge {
@@ -189,7 +194,7 @@ main {
 }
 
 /* GitHub link */
-.github-link {
+.personal-link {
     display: inline-block;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
@@ -202,10 +207,10 @@ main {
     backdrop-filter: blur(5px);
 }
 
-.github-link:hover {
+.personal-link:hover {
     background: rgba(255, 255, 255, 0.4);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(2px);
 }
 
 .github-icon {
@@ -223,28 +228,36 @@ main {
 }
 
 /* Unique thumbnail backgrounds */
+.thumbnail-cv {
+    background: rgba(200, 190, 210, 0.9);
+}
+
+.thumbnail-linerider-gravity {
+    background: rgba(173, 228, 185, 0.9);
+}
+
 .thumbnail-flowers {
-    background: rgba(255, 182, 193, 1); /* Light pink for flowers */
+    background: rgba(255, 182, 193, 0.9);
 }
 
 .thumbnail-webcog {
-    background: rgba(173, 216, 230, 0.9); /* Light blue for web tech */
+    background: rgba(173, 216, 230, 0.9);
 }
 
 .thumbnail-essay {
-    background: rgba(255, 255, 224, 0.9); /* Light yellow for academic work */
+    background: rgba(255, 255, 224, 0.9);
 }
 
 .thumbnail-blackbrew {
-    background: rgba(211, 211, 211, 0.9); /* Light gray for dark theme */
+    background: rgba(211, 211, 211, 0.9);
 }
 
 .thumbnail-pep {
-    background: rgba(144, 238, 144, 0.9); /* Light green for government */
+    background: rgba(144, 238, 144, 0.9);
 }
 
 .thumbnail-binary {
-    background: rgba(255, 218, 185, 0.9); /* Light orange for video/technical */
+    background: rgba(255, 218, 185, 0.9);
 }
 .hero p {
     font-size: 1rem;
