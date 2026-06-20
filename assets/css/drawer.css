@@ -154,7 +154,7 @@ body.drawer-open .grid-drawer-tab {
     border-right: none;
     border-radius: 8px 0 0 8px;
     padding: 0.9rem 0.7rem;
-    cursor: pointer;
+    cursor: default;
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -168,7 +168,7 @@ body.drawer-open .grid-drawer-tab {
     gap: 0;
 }
 
-.grid-drawer-tab:hover {
+.grid-drawer-tab.ready:hover {
     background: rgba(60, 60, 60, 0.95);
     color: #fff;
 }
@@ -224,6 +224,10 @@ body.drawer-open .grid-drawer-tab {
 .grid-drawer-tab.ready .tab-label {
     opacity: 1;
     transition-delay: 0.4s;
+}
+
+.grid-drawer-tab.ready {
+    cursor: pointer;
 }
 
 .grid-drawer-tab.pulse {

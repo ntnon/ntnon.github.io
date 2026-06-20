@@ -129,8 +129,9 @@
     setDrawerOpen(false);
   }
 
-  // Toggle drawer
+  // Toggle drawer (only when all dots are lit)
   tab.addEventListener('click', () => {
+    if (!tabRevealed) return;
     tab.classList.remove('pulse');
     const isOpen = drawer.classList.toggle('open');
     tab.classList.toggle('pushed', isOpen);
@@ -215,6 +216,11 @@
     return constraint.toFixed(2);
   });
 
+  wireSlider('slider-passes', 'val-passes', (v) => {
+    constraintPasses = Number(v);
+    return constraintPasses;
+  });
+
   // Randomize
   function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
@@ -228,5 +234,6 @@
     syncSlider('slider-influence', randInt(20, 400));
     syncSlider('slider-strength', randInt(50, 1500));
     syncSlider('slider-constraint', randInt(0, 100));
+    syncSlider('slider-passes', randInt(1, 10));
   });
 })();

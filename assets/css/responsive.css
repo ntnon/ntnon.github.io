@@ -64,7 +64,8 @@
     .grid-drawer,
     .grid-drawer-tab,
     .fake-cursor,
-    .card-check {
+    .card-check,
+    .secret-text {
         display: none !important;
     }
 }

@@ -9,8 +9,8 @@ const hexSizeMax = Math.round(screenMin / 8);
 const hexSizeDefault = Math.round(screenMin / 40);
 
 let size = hexSizeDefault;
-let influence = 60;
-let strength = 30;
+let influence = 120;
+let strength = 50;
 let constraint = 0.3;
 let constraintPasses = 2;
 const baseSize = hexSizeDefault;
