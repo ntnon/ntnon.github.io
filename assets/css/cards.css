@@ -23,8 +23,10 @@
     isolation: isolate;
 }
 
-.card:hover {
-    transform: translateY(12px);
+@media (min-width: 768px) {
+    .card:hover {
+        transform: translateY(12px);
+    }
 }
 
 .card img {
@@ -54,7 +56,7 @@
 }
 
 .card p {
-    color: #666;
+    color: black;
     font-size: 0.9rem;
 }
 
@@ -85,7 +87,6 @@
     z-index: -1;
     border-radius: 9px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
     pointer-events: none;
 }
 
@@ -128,6 +129,10 @@
 
 .card--linerider-gravity {
     background: rgba(173, 228, 185, 0.9);
+}
+
+.card--fish-registry {
+    background: rgba(120, 180, 230, 0.9);
 }
 
 .card--flowers {
