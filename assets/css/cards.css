@@ -90,38 +90,6 @@
     pointer-events: none;
 }
 
-/* Card hover checkmark */
-.card-check {
-    position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.7);
-    background: rgba(255, 255, 255, 0.4);
-    z-index: 3;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: check-pulse 2s ease-in-out infinite;
-}
-
-@keyframes check-pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-    50% { transform: scale(1.2); box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.3); }
-}
-
-.card-check.checked {
-    background: rgba(255, 215, 0, 0.9);
-    border-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 12px 4px rgba(255, 215, 0, 0.5);
-    animation: none;
-    transform: scale(1.1);
-}
-
 /* Card color themes */
 .card--cv {
     background: rgba(200, 190, 210, 0.9);

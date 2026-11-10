@@ -1,12 +1,8 @@
-// Card hover checkmarks & settings drawer
+// Grid settings drawer
 (function () {
-  const cards = document.querySelectorAll('.card');
   const drawer = document.getElementById('grid-drawer');
   const tab = document.getElementById('grid-drawer-tab');
   const fakeCursor = document.getElementById('fake-cursor');
-  const totalCards = cards.length;
-  let checkedCount = 0;
-  let tabRevealed = false;
   let drawerOpen = false;
   let fakeCursorAnim = null;
 
@@ -87,52 +83,14 @@
     }
   }
 
-  const tabDots = document.querySelectorAll('.tab-dot');
-
-  // Show tab immediately with empty dots
-  tab.classList.add('visible');
-
-  function markCard(check, index) {
-    if (check.classList.contains('checked')) return;
-    check.classList.add('checked');
-    if (tabDots[index]) tabDots[index].classList.add('lit');
-    checkedCount++;
-    if (checkedCount >= totalCards && !tabRevealed) {
-      tabRevealed = true;
-      setTimeout(() => {
-        tab.classList.add('ready');
-        tab.classList.add('pulse');
-      }, 400);
-    }
-  }
-
-  cards.forEach((card, index) => {
-    const check = card.querySelector('.card-check');
-    if (!check) return;
-
-    if (isMobile() && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          markCard(check, index);
-          observer.disconnect();
-        }
-      }, { threshold: 0.6 });
-      observer.observe(card);
-    } else {
-      card.addEventListener('mouseenter', () => markCard(check, index));
-    }
-  });
-
   function closeDrawer() {
     drawer.classList.remove('open');
     tab.classList.remove('pushed');
     setDrawerOpen(false);
   }
 
-  // Toggle drawer (only when all dots are lit)
+  // Toggle drawer
   tab.addEventListener('click', () => {
-    if (!tabRevealed) return;
-    tab.classList.remove('pulse');
     const isOpen = drawer.classList.toggle('open');
     tab.classList.toggle('pushed', isOpen);
     setDrawerOpen(isOpen);

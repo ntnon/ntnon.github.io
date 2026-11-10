@@ -63,9 +63,7 @@
     /* Hide grid settings entirely on mobile */
     .grid-drawer,
     .grid-drawer-tab,
-    .fake-cursor,
-    .card-check,
-    .secret-text {
+    .fake-cursor {
         display: none !important;
     }
 }
